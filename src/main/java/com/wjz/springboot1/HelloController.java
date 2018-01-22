@@ -21,7 +21,10 @@ public class HelloController {
     private OrderService orderService;
 
     @RequestMapping(value = "/")
-    public String hello() {
+    public String hello() throws Exception{
+        if (true){
+            throw new RuntimeException("i am wrong");
+        }
         return "hello";
     }
 
