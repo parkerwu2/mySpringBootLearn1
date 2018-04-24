@@ -1,7 +1,5 @@
 package com.wjz.springboot1.service.jms;
 
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by jingzhi.wu on 2018/3/20.
