@@ -41,7 +41,4 @@ public class HelloController {
         return dto;
     }
 
-    public static void main(String[] args) {
-
-    }
 }

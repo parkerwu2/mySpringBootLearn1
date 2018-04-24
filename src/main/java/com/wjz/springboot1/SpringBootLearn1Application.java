@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @MapperScan("com.wjz.springboot1.persistence.dao")
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class SpringBootLearn1Application {
 
 	public static void main(String[] args) {

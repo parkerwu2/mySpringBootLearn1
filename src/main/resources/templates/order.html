@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>订单
+    <meta charset="utf-8"/>
+    <title>首页</title>
+</head>
+<body>
+订单号:<input type="text" name="orderNo" id="orderNo"/>
+<input type="button" value="查询" onclick="queryOrder();"/>
+</body>
+<textarea id="result" name="result"></textarea>
+<script type="text/javascript" src="/webjars/jquery/2.1.4/jquery.js"></script>
+<script type="text/javascript">
+function queryOrder(){
+    var orderNo = $("#orderNo").val();
+    var url="http://localhost:9090/order/queryOrderByNo?orderNo="+orderNo;
+    $.ajax({
+        type:"post",//这里使用post方式，经测试不能直接改成get，get怎么办之后再研究
+        url:url,//设置要访问的url,既可以使用/开头的形式，表示根目录，也可以用完整的http://localhost:8080/test/ajax这样的形式,开头不加/也是可以的 ，不过这样就是在当前url的基础上直接追加来进行访问,也就是相对路径
+        contentType:"application/json;charset=utf-8",//这里很重要，不能省略，因为默认的类型是application/x-www-form-urlencoded,如果不设置的话后台就无法使用@RequestBody正常接收
+        data:{"orderNo":orderNo},
+        //这里有一点尤其要注意，在网上查到的资料有的是{"key":"value"}这种形式的，大括号两端没有引号，经过测试，这样是不行的，必须整个加上引号
+        dataType:"json",//这里声明收到的服务器的响应数据类型，如果是json的话，不声明也可以正常使用
+        success:function(data) {
+//响应成功后回调的函数，data是来自服务器的数据
+            $("#result").html(JSON.stringify(data));
+//这里将json转为字符串显示(data其实是个object,不转换的话会显示为一片空白)
+        } ,
+        error:function()
+        {
+//出错时回调该函数
+            alert("error");
+        }
+    });
+}
+
+
+</script>
+</html>
