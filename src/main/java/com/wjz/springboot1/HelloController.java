@@ -6,6 +6,8 @@ import com.wjz.springboot1.service.dto.QueryOrderByNoRespDto;
 import com.wjz.springboot1.service.dto.UpdateTimeReqDto;
 import com.wjz.springboot1.service.order.OrderService;
 import com.wjz.springboot1.util.BusinessUtil;
+import com.wjz.springboot1.util.RestUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/order")
+@Slf4j
 public class HelloController {
     @Autowired
     private OrderService orderService;
@@ -37,6 +40,7 @@ public class HelloController {
 
     @RequestMapping(value = "/queryOrderByNo")
     public QueryOrderByNoRespDto queryOrderByNo(@RequestParam(value="orderNo", required = true) String orderNo) {
+        log.info("queryOrderByNo start={}", orderNo);
         QueryOrderByNoRespDto dto = new QueryOrderByNoRespDto();
         if (!StringUtils.isEmpty(orderNo)) {
             List<OrderPo> orderPos = orderService.queryOrderByNo(orderNo);
@@ -50,6 +54,7 @@ public class HelloController {
 
     @RequestMapping(value="/updateTime")
     public ApiBaseResponse updateTime(@RequestBody @Valid UpdateTimeReqDto updateTimeReqDto, BindingResult bindingResult) throws Exception {
+        log.info("updateTime start={}", RestUtil.objectToJson(updateTimeReqDto));
         BusinessUtil.processParam(bindingResult);
         orderService.updateBuyerMessage(updateTimeReqDto);
         return new ApiBaseResponse();
