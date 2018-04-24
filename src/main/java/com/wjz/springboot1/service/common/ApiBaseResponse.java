@@ -10,5 +10,5 @@ import java.io.Serializable;
 @Data
 public class ApiBaseResponse implements Serializable {
     private String code = "00";
-    private String message;
+    private String message = "操作成功";
 }

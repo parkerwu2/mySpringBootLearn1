@@ -1,14 +1,20 @@
 package com.wjz.springboot1;
 
 import com.wjz.springboot1.persistence.model.OrderPo;
+import com.wjz.springboot1.service.common.ApiBaseResponse;
 import com.wjz.springboot1.service.dto.QueryOrderByNoRespDto;
+import com.wjz.springboot1.service.dto.UpdateTimeReqDto;
 import com.wjz.springboot1.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -39,6 +45,16 @@ public class HelloController {
             dto.setMessage("订单编号不能为空");
         }
         return dto;
+    }
+
+    @RequestMapping(value="/updateTime")
+    public ApiBaseResponse updateTime(@RequestBody @Valid UpdateTimeReqDto updateTimeReqDto, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            List<ObjectError> ls = bindingResult.getAllErrors();
+            throw new Exception(ls.get(0).getDefaultMessage());
+        }
+        orderService.updateBuyerMessage(updateTimeReqDto);
+        return new ApiBaseResponse();
     }
 
 }
