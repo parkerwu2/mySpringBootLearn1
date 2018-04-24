@@ -5,7 +5,7 @@
   <context id="context1" >
     <plugin type="com.xxg.mybatis.plugins.MySQLLimitPlugin"></plugin>
     <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.15.109:3306/mallorder?characterEncoding=UTF-8"
-    	userId="" password="" />
+    	userId="vasrip" password="vw61howwf54719o4" />
     <javaModelGenerator targetPackage="com.wjz.springboot1.persistence.model" targetProject="src/main/java">
     	<property name="enableSubPackages" value="false"/>
     	<property name="trimStrings" value="true"/>
