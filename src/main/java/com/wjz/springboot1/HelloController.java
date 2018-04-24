@@ -5,6 +5,7 @@ import com.wjz.springboot1.service.common.ApiBaseResponse;
 import com.wjz.springboot1.service.dto.QueryOrderByNoRespDto;
 import com.wjz.springboot1.service.dto.UpdateTimeReqDto;
 import com.wjz.springboot1.service.order.OrderService;
+import com.wjz.springboot1.util.BusinessUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -49,10 +50,7 @@ public class HelloController {
 
     @RequestMapping(value="/updateTime")
     public ApiBaseResponse updateTime(@RequestBody @Valid UpdateTimeReqDto updateTimeReqDto, BindingResult bindingResult) throws Exception {
-        if (bindingResult.hasErrors()) {
-            List<ObjectError> ls = bindingResult.getAllErrors();
-            throw new Exception(ls.get(0).getDefaultMessage());
-        }
+        BusinessUtil.processParam(bindingResult);
         orderService.updateBuyerMessage(updateTimeReqDto);
         return new ApiBaseResponse();
     }
