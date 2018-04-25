@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 @MapperScan("com.wjz.springboot1.persistence.dao")
 public class SpringBootLearn1Application {
 
@@ -17,12 +17,12 @@ public class SpringBootLearn1Application {
 		SpringApplication.run(SpringBootLearn1Application.class, args);
 	}
 
-	@Bean
-	public TaskScheduler taskScheduler(){
-		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
-		taskScheduler.setPoolSize(16);
-		taskScheduler.setThreadNamePrefix("springboot-task");
-		return taskScheduler;
-	}
+//	@Bean
+//	public TaskScheduler taskScheduler(){
+//		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+//		taskScheduler.setPoolSize(16);
+//		taskScheduler.setThreadNamePrefix("springboot-task");
+//		return taskScheduler;
+//	}
 
 }
