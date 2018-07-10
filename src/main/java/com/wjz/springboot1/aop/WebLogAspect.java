@@ -21,7 +21,7 @@ import java.util.Arrays;
 @Slf4j
 public class WebLogAspect {
     ThreadLocal<Long> startTime = new ThreadLocal<>();
-    @Pointcut("execution(public * com.wjz.springboot1..*.*(..))")
+    @Pointcut("execution(public * com.wjz.springboot1.service.*.*(..))")
     public void webLog(){}
 
     @Before("webLog()")
