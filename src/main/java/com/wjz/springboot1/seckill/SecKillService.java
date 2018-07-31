@@ -1,7 +1,9 @@
 package com.wjz.springboot1.seckill;
 
+import com.wjz.springboot1.service.jms.Producer;
 import com.wjz.springboot1.util.RestUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisOperations;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import redis.clients.jedis.Transaction;
 
+import javax.jms.Destination;
 import java.util.List;
 
 /**
@@ -23,9 +26,12 @@ public class SecKillService {
     @Autowired
     private StringRedisTemplate redisTemplate; // 处理对象
     private String watchkeys = "watchkeys";// 监视keys
+    private String dest = "mytest.queue";
+    @Autowired
+    private Producer producer;
 
     public SecKillResponse buy(SecKillRequest request) throws Exception {
-        log.info("seckillservice start:" + RestUtil.objectToJson(request));
+//        log.info("seckillservice start:" + RestUtil.objectToJson(request));
         SecKillResponse response = new SecKillResponse();
         //先从缓存里获取库存，如果有库存，则发送消息队列通知数据库更新DB库存，下单记录消息
         try {
@@ -52,9 +58,11 @@ public class SecKillService {
                     for(Object succ : list){
                         String succinfo="用户：" + request.getRequester() + "抢购成功，当前抢购成功人数:"
                                 + (1-(valint-100));
-                        log.info(succinfo);
+//                        log.info(succinfo);
                          /* 抢购成功业务逻辑 */
-                        log.info("start to send queue:" + succinfo);
+//                        log.info("start to send queue:" + request.getRequester());
+                        Destination destination = new ActiveMQQueue(dest);
+                        producer.sendMessage(destination, request.getRequester());
                         response.setMessage(succinfo);
                     }
                 }

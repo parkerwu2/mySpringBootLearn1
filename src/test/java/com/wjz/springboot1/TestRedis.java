@@ -89,13 +89,13 @@ public class TestRedis {
         //设置库存
         stringRedisTemplate.opsForValue().set("watchkeys", "100");
         ExecutorService executor = Executors.newFixedThreadPool(32);  //20个线程池并发数
-        int people = 20;
+        int people = 20000;
         final CountDownLatch cdl = new CountDownLatch(people);
         for (int i = 0; i < people; i++) {//设置1000个人来发起抢购
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("inner thread start");
+//                    System.out.println("inner thread start");
                     SecKillRequest request = new SecKillRequest();
                     request.setRequester("reqNum:" + getName(6));
                     try {
@@ -104,7 +104,7 @@ public class TestRedis {
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        System.out.println("inner thread end");
+//                        System.out.println("inner thread end");
                         cdl.countDown();
                     }
 
