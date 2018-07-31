@@ -90,7 +90,7 @@ public class TestRedis {
         stringRedisTemplate.opsForValue().set("watchkeys", "100");
         ExecutorService executor = Executors.newFixedThreadPool(32);  //20个线程池并发数
         int people = 20;
-        final CountDownLatch cdl = new CountDownLatch(2000);
+        final CountDownLatch cdl = new CountDownLatch(people);
         for (int i = 0; i < people; i++) {//设置1000个人来发起抢购
             executor.execute(new Runnable() {
                 @Override

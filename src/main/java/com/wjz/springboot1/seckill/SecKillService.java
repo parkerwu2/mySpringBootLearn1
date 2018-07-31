@@ -29,13 +29,14 @@ public class SecKillService {
         SecKillResponse response = new SecKillResponse();
         //先从缓存里获取库存，如果有库存，则发送消息队列通知数据库更新DB库存，下单记录消息
         try {
-            redisTemplate.watch(watchkeys);// watchkeys
+//            redisTemplate.watch(watchkeys);// watchkeys
             Object val = redisTemplate.opsForValue().get(watchkeys);
             int valint = Integer.valueOf(String.valueOf(val));
             if (valint <= 100 && valint>=1) {
                 SessionCallback sessionCallback = new SessionCallback() {
                 @Override
                 public Object execute(RedisOperations redisOperations) throws DataAccessException {
+                    redisOperations.watch(watchkeys);
                     redisOperations.multi();
                     redisOperations.opsForValue().increment(watchkeys, -1);
                     return redisOperations.exec();
