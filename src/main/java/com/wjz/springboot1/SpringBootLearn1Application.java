@@ -1,5 +1,6 @@
 package com.wjz.springboot1;
 
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +21,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 //@EnableScheduling
 @MapperScan("com.wjz.springboot1.persistence.dao")
 @EnableCaching
+@EnableApolloConfig
 public class SpringBootLearn1Application {
 
     public static void main(String[] args) {
