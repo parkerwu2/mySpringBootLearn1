@@ -1,5 +1,7 @@
 package com.wjz.springboot1;
 
+import com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;
+import com.alicp.jetcache.anno.config.EnableMethodCache;
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -22,6 +24,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @MapperScan("com.wjz.springboot1.persistence.dao")
 @EnableCaching
 @EnableApolloConfig
+@EnableMethodCache(basePackages = "com.wjz.springboot1")
+@EnableCreateCacheAnnotation
 public class SpringBootLearn1Application {
 
     public static void main(String[] args) {
