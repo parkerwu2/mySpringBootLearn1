@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -100,7 +101,7 @@ public class TestRedis {
                     request.setRequester("reqNum:" + getName(6));
                     try {
                         SecKillResponse response = secKillService.buy(request);
-                        System.out.println(RestUtil.objectToJson(response));
+                        System.out.println(RestUtil.objectToJSONString(response));
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
