@@ -1,9 +1,9 @@
 package com.wjz.springboot1;
 
+import com.wjz.springboot1.dozer.EJBGenerator;
 import com.wjz.springboot1.persistence.model.OrderPo;
 import com.wjz.springboot1.service.common.ApiBaseResponse;
-import com.wjz.springboot1.service.dto.QueryOrderByNoRespDto;
-import com.wjz.springboot1.service.dto.UpdateTimeReqDto;
+import com.wjz.springboot1.service.dto.*;
 import com.wjz.springboot1.service.order.OrderService;
 import com.wjz.springboot1.util.BusinessUtil;
 import com.wjz.springboot1.util.RestUtil;
@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +31,8 @@ import java.util.List;
 public class HelloController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private final static EJBGenerator ejbGenerator = new EJBGenerator();
 
     @RequestMapping(value = "/")
     public String hello() throws Exception{
@@ -36,6 +40,10 @@ public class HelloController {
             throw new RuntimeException("i am wrong");
         }
         return "hello";
+    }
+    @RequestMapping(value = "/dozer")
+    public String dozer() throws Exception{
+        return "dozer";
     }
 
     @RequestMapping(value = "/queryOrderByNo")
@@ -54,7 +62,7 @@ public class HelloController {
 
     @RequestMapping(value="/updateTime")
     public ApiBaseResponse updateTime(@RequestBody @Valid UpdateTimeReqDto updateTimeReqDto, BindingResult bindingResult) throws Exception {
-        log.info("updateTime start={}", RestUtil.objectToJson(updateTimeReqDto));
+        log.info("updateTime start={}", RestUtil.objectToJSONString(updateTimeReqDto));
         BusinessUtil.processParam(bindingResult);
         orderService.updateBuyerMessage(updateTimeReqDto);
         return new ApiBaseResponse();

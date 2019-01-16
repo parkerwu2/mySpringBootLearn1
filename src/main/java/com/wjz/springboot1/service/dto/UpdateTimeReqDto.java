@@ -3,6 +3,7 @@ package com.wjz.springboot1.service.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * Created by jingzhi.wu on 2018/4/24.
@@ -13,4 +14,6 @@ public class UpdateTimeReqDto {
     private String orderNo;
     @NotNull(message = "新买家留言不能为空")
     private String newBuyerMessage;
+    private Date orderDate;
+    private Date refundDate;
 }
