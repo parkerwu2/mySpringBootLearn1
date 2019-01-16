@@ -8,6 +8,7 @@ import com.wjz.springboot1.service.order.OrderService;
 import com.wjz.springboot1.util.BusinessUtil;
 import com.wjz.springboot1.util.RestUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -31,8 +32,10 @@ import java.util.List;
 public class HelloController {
     @Autowired
     private OrderService orderService;
+//    @Autowired
+//    private final static EJBGenerator ejbGenerator = new EJBGenerator();
     @Autowired
-    private final static EJBGenerator ejbGenerator = new EJBGenerator();
+    private DozerBeanMapper dozerBeanMapper;
 
     @RequestMapping(value = "/")
     public String hello() throws Exception{
@@ -42,7 +45,10 @@ public class HelloController {
         return "hello";
     }
     @RequestMapping(value = "/dozer")
-    public String dozer() throws Exception{
+    public String dozer(@RequestBody DozerRequest dozerRequest) throws Exception{
+//        DozerTarget dozerTarget = ejbGenerator.convert(dozerRequest, DozerTarget.class);
+        DozerTarget dozerTarget = dozerBeanMapper.map(dozerRequest, DozerTarget.class);
+        System.out.println(RestUtil.objectToJSONString(dozerTarget));
         return "dozer";
     }
 

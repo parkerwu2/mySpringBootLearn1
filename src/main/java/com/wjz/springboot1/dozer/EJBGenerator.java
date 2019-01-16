@@ -1,5 +1,6 @@
 package com.wjz.springboot1.dozer;
 
+import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -14,11 +15,11 @@ import java.util.Set;
 /**
  * Created by jingzhi.wu on 2019/1/15.
  */
-@Component
+//@Component
 @Lazy(true)
 public class EJBGenerator implements IGenerator {
     @Autowired
-    protected Mapper dozerMapper;
+    protected DozerBeanMapper dozerMapper;
 
     public <T, S> T convert(S s, Class<T> clz) {
         if (s == null) {

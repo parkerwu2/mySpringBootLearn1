@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-//@ContextConfiguration(locations = {"classpath:dozer/*.xml"})
+//@ContextConfiguration(locations = {"classpath:dozer/dozer-mapping.xml"})
 public class DozerTest {
     @Autowired
     private final static EJBGenerator ejbGenerator = new EJBGenerator();

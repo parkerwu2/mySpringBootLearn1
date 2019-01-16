@@ -22,10 +22,10 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @SpringBootApplication
 //@EnableScheduling
 @MapperScan("com.wjz.springboot1.persistence.dao")
-@EnableCaching
-@EnableApolloConfig
-@EnableMethodCache(basePackages = "com.wjz.springboot1")
-@EnableCreateCacheAnnotation
+//@EnableCaching
+//@EnableApolloConfig
+//@EnableMethodCache(basePackages = "com.wjz.springboot1")
+//@EnableCreateCacheAnnotation
 public class SpringBootLearn1Application {
 
     public static void main(String[] args) {
