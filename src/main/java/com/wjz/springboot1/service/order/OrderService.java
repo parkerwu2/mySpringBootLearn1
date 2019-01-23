@@ -1,8 +1,11 @@
 package com.wjz.springboot1.service.order;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wjz.springboot1.persistence.dao.OrderPoMapper;
 import com.wjz.springboot1.persistence.model.OrderPo;
 import com.wjz.springboot1.persistence.model.OrderPoExample;
+import com.wjz.springboot1.service.dto.QueryOrderByNoReqDto2;
 import com.wjz.springboot1.service.dto.UpdateTimeReqDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,15 @@ public class OrderService {
         OrderPoExample example = new OrderPoExample();
         example.createCriteria().andOrderNoEqualTo(orderNo);
         return orderPoMapper.selectByExample(example);
+    }
+
+    public PageInfo<OrderPo> queryOrderByNo(QueryOrderByNoReqDto2 queryOrderByNoReqDto2) {
+        PageHelper.startPage(queryOrderByNoReqDto2.getPageNo(), queryOrderByNoReqDto2.getPageSize());
+        OrderPoExample example = new OrderPoExample();
+        example.createCriteria().andOrderNoEqualTo(queryOrderByNoReqDto2.getOrderNo());
+        List<OrderPo> list = orderPoMapper.selectByExample(example);
+        PageInfo<OrderPo> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Transactional(rollbackFor=Exception.class)

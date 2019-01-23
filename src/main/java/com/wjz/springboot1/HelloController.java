@@ -1,5 +1,6 @@
 package com.wjz.springboot1;
 
+import com.github.pagehelper.PageInfo;
 import com.wjz.springboot1.dozer.EJBGenerator;
 import com.wjz.springboot1.persistence.model.OrderPo;
 import com.wjz.springboot1.service.common.ApiBaseResponse;
@@ -63,6 +64,14 @@ public class HelloController {
             dto.setCode("-1");
             dto.setMessage("订单编号不能为空");
         }
+        return dto;
+    }
+
+    @RequestMapping(value = "/queryOrderByNo2")
+    public QueryOrderByNoRespDto2 queryOrderByNo(@RequestBody QueryOrderByNoReqDto2 queryOrderByNoReqDto2) {
+        QueryOrderByNoRespDto2 dto = new QueryOrderByNoRespDto2();
+        PageInfo<OrderPo> pageInfo = orderService.queryOrderByNo(queryOrderByNoReqDto2);
+        dto.setPageInfo(pageInfo);
         return dto;
     }
 
