@@ -65,16 +65,16 @@ public class RedisConfig extends CachingConfigurerSupport {
      */
 
     @SuppressWarnings("rawtypes")
-    @Bean
-    public CacheManager CacheManager(RedisTemplate redisTemplate) {
-        RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
-        // 设置cache过期时间,时间单位是秒
-        rcm.setDefaultExpiration(60);
-        Map<String, Long> map = new HashMap<String, Long>();
-        map.put("test", 60L);
-        rcm.setExpires(map);
-        return rcm;
-    }
+//    @Bean
+//    public CacheManager CacheManager(RedisTemplate redisTemplate) {
+//        RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
+//        // 设置cache过期时间,时间单位是秒
+//        rcm.setDefaultExpiration(60);
+//        Map<String, Long> map = new HashMap<String, Long>();
+//        map.put("test", 60L);
+//        rcm.setExpires(map);
+//        return rcm;
+//    }
 
     /**
      * redis 数据库连接池
