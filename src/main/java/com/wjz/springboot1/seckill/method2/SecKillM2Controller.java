@@ -23,6 +23,8 @@ public class SecKillM2Controller {
 
     private LinkedBlockingQueue goods;
 
+    private final String rediskey = "rediskey";
+
     @PostConstruct
     public void init(){
         goods = new LinkedBlockingQueue();
@@ -63,7 +65,7 @@ public class SecKillM2Controller {
 
     private boolean tryLock(String userName){
         String currentStr = String.valueOf(System.currentTimeMillis());
-        Long result = jedisCache.setnx(userName, currentStr);
+        Long result = jedisCache.setnx(rediskey, currentStr);
         log.info("key:"+userName + ",result:"+result);
         if (result.equals(0l)){
             jedisCache.expire(userName, 5);
