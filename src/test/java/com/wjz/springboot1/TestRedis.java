@@ -5,6 +5,7 @@ import com.wjz.springboot1.persistence.model.OrderPo;
 import com.wjz.springboot1.seckill.SecKillRequest;
 import com.wjz.springboot1.seckill.SecKillResponse;
 import com.wjz.springboot1.seckill.SecKillService;
+import com.wjz.springboot1.util.JedisCache;
 import com.wjz.springboot1.util.RestUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,12 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -40,6 +40,21 @@ public class TestRedis {
 
     @Autowired
     private OrderPoMapper orderPoMapper;
+
+    @Autowired
+    private JedisCache jedisCache;
+
+    @Test
+    public void testJedis(){
+        Map<String, String> map  = new HashMap<>();
+        map.put("name", "ki");
+        jedisCache.setInfo("key", map);
+        Map<String, String> m = jedisCache.get("key");
+        for (String x : m.values()){
+            System.out.println(x);
+        }
+    }
+
     @Test
     public void test() throws Exception {
         stringRedisTemplate.opsForValue().set("papa", "124");
